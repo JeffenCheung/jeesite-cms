@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.pactera.jeesite</groupId>
+		<artifactId>aggregator</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../aggregator</relativePath>
+	</parent>
+
+	<!-- 子项目：内容管理 -->
+	<groupId>com.pactera.jeesite</groupId>
+	<artifactId>jeesite-cms</artifactId>
+	<version>1.2.10</version>
+	<packaging>war</packaging>
+
+	<name>jeesite-cms</name>
+	<url>http://jeffencheung.github.com/jeesite</url>
+	<inceptionYear>2014-2016</inceptionYear>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<argLine>-Dfile.encoding=UTF-8</argLine>
+		<junit.version>4.11</junit.version>
+	</properties>
+
+	<!-- 
+		1、这个工程的packaging类型是war，而不是jar。
+			但是最终它不会独立打出war包来，其src/main/webapp里的所有文件，
+			都会被最外围的web-dist工程聚合成一个总的war 
+		2、这个工程的WEB-INF目录下，没有web.xml（有也没用，最终会被覆盖）。
+			默认情况下，packaging类型为war的项目，如果没有web.xml，则构建会失败，
+			因此需要在pom里做一个failOnMissingWebXml配置
+		3、【普通的模块】除了jeesite-common工程无额外依赖，
+			直接packagingExcludes过滤所有jar
+		4、【服务模块】有自主依赖jeesite-common之外的jar的模块，
+			通过packagingIncludes过滤打包非共通的jar，
+			注意！引入WEB-INF/classes和views等本模块的文件夹
+	 -->
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+					<packagingExcludes>
+						WEB-INF/lib/*.jar
+					</packagingExcludes>
+				</configuration>
+			</plugin>
+			
+			<!-- source插件 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<!--继承父模块的jar包 -->
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>jeesite-common</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<!-- 已提供provided依赖范围，编译compile和测试test有效，运行时runtime容器tomcat已经提供，无需重新引入 -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>jsp-api</artifactId>
+			<version>2.2</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+</project>
