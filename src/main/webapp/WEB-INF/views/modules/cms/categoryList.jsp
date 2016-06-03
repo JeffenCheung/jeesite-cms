@@ -7,6 +7,7 @@
 	
 	<link rel="stylesheet" href="${ctxStatic}/bootstrap/table-fixed-header-master/table-fixed-header.min.css">
 	<script src="${ctxStatic}/bootstrap/table-fixed-header-master/table-fixed-header.min.js"></script>
+	<script src="${ctxStatic}/bootstrap/table-fixed-header-master/bottom-sticker.min.js"></script>
 	
 	<%@include file="/WEB-INF/views/include/treetable.jsp" %>
 	<script type="text/javascript">
@@ -14,6 +15,7 @@
 			$("#treeTable").treeTable({expandLevel : 3});
 			// make the header fixed on scroll
 			$(".table-fixed-header").fixedHeader();
+			$("#bottom-sticker").bottomSticker({bottom: '-15px'});
 			
 			// 双击记录进行编辑
 			$("#treeTable tbody tr").on("dblclick", function() {
@@ -33,7 +35,7 @@
 		<shiro:hasPermission name="cms:category:edit"><li><a href="${ctx}/cms/category/form">栏目添加</a></li></shiro:hasPermission>
 	</ul>
 	<sys:message content="${message}"/>
-	<form id="listForm" method="post">
+	<form id="listForm" method="post" class="form-horizontal">
 		<table id="treeTable" class="table table-striped table-bordered table-condensed table-hover table-fixed-header">
 			<thead class="header">
 				<tr>
@@ -74,7 +76,7 @@
 				</tr>
 			</c:forEach>
 		</table>
-		<shiro:hasPermission name="cms:category:edit"><div class="form-actions pagination-left">
+		<shiro:hasPermission name="cms:category:edit"><div class="form-actions pagination-left" id="bottom-sticker">
 			<input id="btnSubmit" class="btn btn-primary" type="button" value="保存排序" onclick="updateSort();"/>
 		</div></shiro:hasPermission>
 	</form>

@@ -4,6 +4,7 @@
 <head>
 	<title>留言管理</title>
 	<meta name="decorator" content="default"/>
+	<script src="${ctxStatic}/bootstrap/table-fixed-header-master/bottom-sticker.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$("#reContent").focus();
@@ -22,6 +23,7 @@
 					}
 				}
 			});
+			$("#bottom-sticker").bottomSticker();
 		});
 	</script>
 </head>
@@ -102,7 +104,7 @@
 				<form:textarea path="reContent" htmlEscape="false" rows="4" maxlength="200" class="required input-xxlarge"/>
 			</div>
 		</div>
-		<div class="form-actions"><c:if test="${guestbook.delFlag eq '2'}">
+		<div class="form-actions" id="bottom-sticker"><c:if test="${guestbook.delFlag eq '2'}">
 			<shiro:hasPermission name="cms:guestbook:edit"><input id="btnSubmit" class="btn btn-success" type="submit" value="通 过" onclick="$('#delFlag').val('0')"/>&nbsp;
 			<input id="btnSubmit" class="btn btn-inverse" type="submit" value="驳 回" onclick="$('#delFlag').val('1')"/>&nbsp;</shiro:hasPermission></c:if>
 			<input id="btnCancel" class="btn" type="button" value="返 回" onclick="history.go(-1)"/>

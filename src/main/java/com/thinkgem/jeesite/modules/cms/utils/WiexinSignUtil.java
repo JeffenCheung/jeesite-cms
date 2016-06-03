@@ -1,5 +1,6 @@
 package com.thinkgem.jeesite.modules.cms.utils;
 
+import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
@@ -36,7 +37,7 @@ public class WiexinSignUtil {
 	        try {  
 	            md = MessageDigest.getInstance("SHA-1");  
 	            // 将三个参数字符串拼接成一个字符串进行sha1加密  
-	            byte[] digest = md.digest(content.toString().getBytes());  
+	            byte[] digest = md.digest(content.toString().getBytes(Charset.forName("UTF-8")));  
 	            tmpStr = byteToStr(digest);  
 	        } catch (NoSuchAlgorithmException e) {  
 	            e.printStackTrace();  

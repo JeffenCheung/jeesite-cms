@@ -64,7 +64,7 @@ public class SiteController extends BaseController {
 	@RequestMapping(value = "save")
 	public String save(Site site, Model model, RedirectAttributes redirectAttributes) {
 		if(Global.isDemoMode()){
-			addMessage(redirectAttributes, "演示模式，不允许操作！");
+			addMessage4DemoMode(redirectAttributes);
 			return "redirect:" + adminPath + "/cms/site/?repage";
 		}
 		if (!beanValidator(model, site)){
@@ -79,7 +79,7 @@ public class SiteController extends BaseController {
 	@RequestMapping(value = "delete")
 	public String delete(Site site, @RequestParam(required=false) Boolean isRe, RedirectAttributes redirectAttributes) {
 		if(Global.isDemoMode()){
-			addMessage(redirectAttributes, "演示模式，不允许操作！");
+			addMessage4DemoMode(redirectAttributes);
 			return "redirect:" + adminPath + "/cms/site/?repage";
 		}
 		if (Site.isDefault(site.getId())){

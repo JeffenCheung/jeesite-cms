@@ -4,6 +4,7 @@
 <head>
 	<title>信息量统计</title>
 	<meta name="decorator" content="default"/>
+	<script src="${ctxStatic}/bootstrap/table-fixed-header-master/bottom-sticker.min.js"></script>
 	<script type="text/javascript">
 		function autoRowSpan(tb,row,col){
 	        var lastValue="",value="",pos=1;  
@@ -22,6 +23,7 @@
 		$(document).ready(function(){
 			autoRowSpan(contentTable,0,0);
 	        $("td,th").css({"text-align":"center","vertical-align":"middle"});
+			$("#bottom-sticker").bottomSticker();
 		});
 	</script>
 </head>
@@ -62,6 +64,6 @@
 		</c:forEach>
 		</tbody>
 	</table>
-	<div class="pagination">${page}</div>
+	<div class="pagination" id="bottom-sticker">${page}</div>
 </body>
 </html>

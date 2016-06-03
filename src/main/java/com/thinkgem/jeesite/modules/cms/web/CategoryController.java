@@ -91,7 +91,7 @@ public class CategoryController extends BaseController {
 	@RequestMapping(value = "save")
 	public String save(Category category, Model model, RedirectAttributes redirectAttributes) {
 		if(Global.isDemoMode()){
-			addMessage(redirectAttributes, "演示模式，不允许操作！");
+			addMessage4DemoMode(redirectAttributes);
 			return "redirect:" + adminPath + "/cms/category/";
 		}
 		if (!beanValidator(model, category)){
@@ -106,7 +106,7 @@ public class CategoryController extends BaseController {
 	@RequestMapping(value = "delete")
 	public String delete(Category category, RedirectAttributes redirectAttributes) {
 		if(Global.isDemoMode()){
-			addMessage(redirectAttributes, "演示模式，不允许操作！");
+			addMessage4DemoMode(redirectAttributes);
 			return "redirect:" + adminPath + "/cms/category/";
 		}
 		if (Category.isRoot(category.getId())){
