@@ -1,4 +1,4 @@
-# Pactera JeeSite 企业信息化快速开发平台 V1.2.10
+# Pactera JeeSite 企业信息化快速开发平台 V1.2.11-SNAPSHOT
 
 ## 内容管理
 CMS内容发布模块。提供后台管理(BackStage)，和前台展示(FrontEnd)。
